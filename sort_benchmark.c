@@ -12,6 +12,7 @@
 //   ./sort_benchmark 50000    -> runs a single custom size instead
 
 #define MAX_N 100000
+#define SEED 42
 
 // ---------- Helpers ----------
 
@@ -150,12 +151,12 @@ int main(int argc, char **argv) {
     printf("   Sorting Algorithms Benchmark\n");
     printf("==============================================\n");
     printf("Each algorithm sorts the SAME random array.\n");
-    printf("Fixed seed 42 => identical data on every run.\n");
+    printf("Fixed seed %d => identical data on every run.\n", SEED);
     printf("Times in milliseconds (lower is better).\n\n");
 
     for (int s = 0; s < num_sizes; s++) {
         int n = sizes[s];
-        fill_random(data, n, 42);
+        fill_random(data, n, SEED);
 
         printf("--- n = %d (random data) ---\n", n);
         printf("  %-15s %10s\n", "Algorithm", "Time (ms)");
