@@ -135,6 +135,13 @@ int main(int argc, char **argv) {
     static int data[MAX_N];
     clock_t total_start = clock();
 
+    if (argc == 2 && (strcmp(argv[1], "-h") == 0 || strcmp(argv[1], "--help") == 0)) {
+        printf("Usage: %s [size]\n", argv[0]);
+        printf("  size: elements to benchmark (%d-%d).\n", MIN_SIZE, MAX_N);
+        printf("  Omit size to run the defaults: 1000, 5000, 10000, 20000.\n");
+        return 0;
+    }
+
     if (argc == 2) {
         custom_size = atoi(argv[1]);
         if (custom_size < MIN_SIZE || custom_size > MAX_N) {
