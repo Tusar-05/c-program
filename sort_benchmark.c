@@ -145,7 +145,7 @@ int main(int argc, char **argv) {
     if (argc == 2) {
         custom_size = atoi(argv[1]);
         if (custom_size < MIN_SIZE || custom_size > MAX_N) {
-            fprintf(stderr, "Size must be between %d and %d\n", MIN_SIZE, MAX_N);
+            fprintf(stderr, "%s: size must be between %d and %d\n", argv[0], MIN_SIZE, MAX_N);
             return 1;
         }
         sizes = &custom_size;
