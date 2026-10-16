@@ -21,3 +21,29 @@ as when the integer named 'result' is displayed it shows the calculate(num1,num2
 
 as we can see in the line 98 of the program int calculate(int a, int b, int (*op)(int, int)) { return op(a , b); } 
 the op in this function is used to dereference the pointer and access the value inside the pointer , for example if the pointer op points to add function then return op(a , b); looks like return add(a , b);
+
+---
+
+## sort_benchmark.c — Sorting Algorithms Benchmark
+
+Compares three hand-written **O(n²)** sorting algorithms against the standard library **qsort** (O(n log n)):
+
+- **Bubble Sort** — repeatedly swaps adjacent out-of-order pairs, with an early-exit if a pass makes no swaps
+- **Selection Sort** — finds the minimum of the unsorted tail and swaps it into place
+- **Insertion Sort** — grows a sorted prefix by inserting each next element (like sorting cards in your hand)
+- **qsort** — from `<stdlib.h>`, using a `compare_ints` comparator function
+
+Each algorithm sorts an **identical copy of the same random array** (fixed seed 42), timed with `clock()`, at sizes n = 1000, 5000, 10000, 20000. Results are verified with `is_sorted()` after every run.
+
+### Build and run
+
+```bash
+gcc -Wall -O2 -o sort_benchmark sort_benchmark.c
+./sort_benchmark
+```
+
+### What to observe
+
+- The three O(n²) sorts roughly **quadruple** their time when n doubles
+- qsort stays fast even at n = 20000
+- Insertion sort is the fastest of the O(n²) group on random data (fewer swaps, better cache behavior)
