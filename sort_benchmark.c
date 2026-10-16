@@ -13,6 +13,7 @@
 
 #define MAX_N 100000
 #define SEED 42
+#define VALUE_RANGE 100000
 
 // ---------- Helpers ----------
 
@@ -20,7 +21,7 @@
 void fill_random(int *a, int n, unsigned seed) {
     srand(seed);
     for (int i = 0; i < n; i++) {
-        a[i] = rand() % 100000;
+        a[i] = rand() % VALUE_RANGE;
     }
 }
 
