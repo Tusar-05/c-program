@@ -150,6 +150,7 @@ int main(int argc, char **argv) {
     printf("   Sorting Algorithms Benchmark\n");
     printf("==============================================\n");
     printf("Each algorithm sorts the SAME random array.\n");
+    printf("Fixed seed 42 => identical data on every run.\n");
     printf("Times in milliseconds (lower is better).\n\n");
 
     for (int s = 0; s < num_sizes; s++) {
