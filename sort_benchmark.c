@@ -28,6 +28,7 @@ void fill_random(int *a, int n, unsigned seed) {
 
 // Return 1 if array is sorted in non-decreasing order, else 0
 int is_sorted(const int *a, int n) {
+    if (n < 2) return 1;
     for (int i = 1; i < n; i++) {
         if (a[i - 1] > a[i]) return 0;
     }
