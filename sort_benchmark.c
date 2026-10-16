@@ -12,6 +12,7 @@
 //   ./sort_benchmark 50000    -> runs a single custom size instead
 
 #define MAX_N 100000
+#define MIN_SIZE 10
 #define SEED 42
 #define VALUE_RANGE 100000
 
@@ -135,8 +136,8 @@ int main(int argc, char **argv) {
 
     if (argc == 2) {
         custom_size = atoi(argv[1]);
-        if (custom_size < 10 || custom_size > MAX_N) {
-            fprintf(stderr, "Size must be between 10 and %d\n", MAX_N);
+        if (custom_size < MIN_SIZE || custom_size > MAX_N) {
+            fprintf(stderr, "Size must be between %d and %d\n", MIN_SIZE, MAX_N);
             return 1;
         }
         sizes = &custom_size;
