@@ -39,7 +39,8 @@ Each algorithm sorts an **identical copy of the same random array** (fixed seed 
 
 ```bash
 gcc -Wall -O2 -o sort_benchmark sort_benchmark.c
-./sort_benchmark
+./sort_benchmark          # default sizes: 1000, 5000, 10000, 20000
+./sort_benchmark 50000    # single custom size (10 to 100000)
 ```
 
 ### What to observe
@@ -47,3 +48,4 @@ gcc -Wall -O2 -o sort_benchmark sort_benchmark.c
 - The three O(n²) sorts roughly **quadruple** their time when n doubles
 - qsort stays fast even at n = 20000
 - Insertion sort is the fastest of the O(n²) group on random data (fewer swaps, better cache behavior)
+- The **best-case section** (already-sorted input) shows insertion sort dropping to O(n) — nearly instant — while selection sort stays slow, since it doesn't care about existing order

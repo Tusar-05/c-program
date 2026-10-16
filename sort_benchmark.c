@@ -7,7 +7,11 @@
 // Compares 3 hand-written O(n^2) sorts against the standard library qsort (O(n log n)).
 // Each algorithm sorts an identical copy of the same random array, timed with clock().
 
-#define MAX_N 20000
+// Usage:
+//   ./sort_benchmark          -> runs the default sizes (1000, 5000, 10000, 20000)
+//   ./sort_benchmark 50000    -> runs a single custom size instead
+
+#define MAX_N 100000
 
 // ---------- Helpers ----------
 
@@ -122,10 +126,25 @@ double benchmark_qsort(const int *src, int n) {
     return ms;
 }
 
-int main(void) {
-    int sizes[] = {1000, 5000, 10000, 20000};
-    int num_sizes = sizeof(sizes) / sizeof(sizes[0]);
+int main(int argc, char **argv) {
+    int default_sizes[] = {1000, 5000, 10000, 20000};
+    const int *sizes = default_sizes;
+    int num_sizes = sizeof(default_sizes) / sizeof(default_sizes[0]);
+    int custom_size = 0;
     static int data[MAX_N];
+
+    if (argc == 2) {
+        custom_size = atoi(argv[1]);
+        if (custom_size < 10 || custom_size > MAX_N) {
+            fprintf(stderr, "Size must be between 10 and %d\n", MAX_N);
+            return 1;
+        }
+        sizes = &custom_size;
+        num_sizes = 1;
+    } else if (argc > 2) {
+        fprintf(stderr, "Usage: %s [size]\n", argv[0]);
+        return 1;
+    }
 
     printf("==============================================\n");
     printf("   Sorting Algorithms Benchmark\n");
@@ -135,9 +154,9 @@ int main(void) {
 
     for (int s = 0; s < num_sizes; s++) {
         int n = sizes[s];
-        fill_random(data, n, 42);   // fixed seed => same data every run
+        fill_random(data, n, 42);
 
-        printf("--- n = %d ---\n", n);
+        printf("--- n = %d (random data) ---\n", n);
         printf("  %-15s %10s\n", "Algorithm", "Time (ms)");
         printf("  %-15s %10.2f\n", "Bubble",    benchmark(bubble_sort,    data, n, "Bubble"));
         printf("  %-15s %10.2f\n", "Selection", benchmark(selection_sort, data, n, "Selection"));
@@ -146,13 +165,29 @@ int main(void) {
         printf("\n");
     }
 
+    // Best-case check: on ALREADY SORTED data insertion sort becomes O(n)
+    // (one comparison per element, zero swaps), while selection sort stays
+    // O(n^2) no matter what.
+    int n = (custom_size > 0 ? custom_size : 10000);
+    for (int i = 0; i < n; i++) data[i] = i;
+
+    printf("--- n = %d (already sorted / best case) ---\n", n);
+    printf("  %-15s %10s\n", "Algorithm", "Time (ms)");
+    printf("  %-15s %10.2f\n", "Bubble",    benchmark(bubble_sort,    data, n, "Bubble"));
+    printf("  %-15s %10.2f\n", "Selection", benchmark(selection_sort, data, n, "Selection"));
+    printf("  %-15s %10.2f\n", "Insertion", benchmark(insertion_sort, data, n, "Insertion"));
+    printf("  %-15s %10.2f\n", "qsort",     benchmark_qsort(data, n));
+    printf("\n");
+
     printf("==============================================\n");
     printf("Observations:\n");
     printf(" - Bubble/Selection/Insertion are O(n^2): doubling\n");
     printf("   n roughly quadruples their time.\n");
-    printf(" - qsort is O(n log n): it stays fast even at n=20000.\n");
+    printf(" - qsort is O(n log n): it stays fast even at large n.\n");
     printf(" - Insertion sort beats the other O(n^2) sorts on\n");
     printf("   random data thanks to fewer swaps and good cache use.\n");
+    printf(" - On already-sorted data insertion sort drops to O(n)\n");
+    printf("   (nearly instant), while selection sort does not care.\n");
     printf("==============================================\n");
 
     return 0;
