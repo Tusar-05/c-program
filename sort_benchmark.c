@@ -133,6 +133,7 @@ int main(int argc, char **argv) {
     int num_sizes = sizeof(default_sizes) / sizeof(default_sizes[0]);
     int custom_size = 0;
     static int data[MAX_N];
+    clock_t total_start = clock();
 
     if (argc == 2) {
         custom_size = atoi(argv[1]);
@@ -190,6 +191,9 @@ int main(int argc, char **argv) {
     printf("   random data thanks to fewer swaps and good cache use.\n");
     printf(" - On already-sorted data insertion sort drops to O(n)\n");
     printf("   (nearly instant), while selection sort does not care.\n");
+    printf("==============================================\n");
+    double total_ms = (double)(clock() - total_start) * 1000.0 / CLOCKS_PER_SEC;
+    printf("Total benchmark time: %.2f ms\n", total_ms);
     printf("==============================================\n");
 
     return 0;
