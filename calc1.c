@@ -15,14 +15,14 @@ int main() {
 
     while (1) {
         // Display menu
-        printf("\n====== Calculator Menu ======\n");
-        printf("1. Addition (+)\n");
-        printf("2. Subtraction (-)\n");
-        printf("3. Multiplication (*)\n");
-        printf("4. Division (/)\n");
-        printf("5. Modulus (%%)\n");
-        printf("6. Exit\n");
-        printf("=============================\n");
+        printf("\n======== Calculator Menu ========\n");
+        printf(" 1. Addition (+)\n");
+        printf(" 2. Subtraction (-)\n");
+        printf(" 3. Multiplication (*)\n");
+        printf(" 4. Division (/) \n");
+        printf(" 5. Modulus (%%) \n");
+        printf(" 6. Exit\n");
+        printf("================================\n");
 
         printf("Enter your choice (1-6): ");
         if (scanf("%d", &choice) != 1) {
@@ -42,13 +42,13 @@ int main() {
 
         printf("Enter first number: ");
         if (scanf("%d", &num1) != 1) {
-            printf("Invalid input! Try again.\n");
+            printf("Invalid input! .\n");
             continue;
         }
 
         printf("Enter second number: ");
         if (scanf("%d", &num2) != 1) {
-            printf("Invalid input! Try again.\n");
+            printf("Invalid input! \n");
             continue;
         }
 
