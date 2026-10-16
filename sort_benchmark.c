@@ -19,7 +19,7 @@
 void fill_random(int *a, int n, unsigned seed) {
     srand(seed);
     for (int i = 0; i < n; i++) {
-        a[i] = rand();
+        a[i] = rand() % 100000;
     }
 }
 
