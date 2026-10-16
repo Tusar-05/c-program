@@ -86,9 +86,7 @@ void insertion_sort(int *a, int n) {
 int compare_ints(const void *x, const void *y) {
     int a = *(const int *)x;
     int b = *(const int *)y;
-    if (a < b) return -1;
-    if (a > b) return 1;
-    return 0;
+    return (a > b) - (a < b);
 }
 
 // ---------- Benchmark driver ----------
