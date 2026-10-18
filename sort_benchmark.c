@@ -18,7 +18,7 @@
 
 // ---------- Helpers ----------
 
-// Fill an array with random integers in [0, 99999]
+// Fill an array with random integers in [0, 99999] 
 void fill_random(int *a, int n, unsigned seed) {
     srand(seed);
     for (int i = 0; i < n; i++) {
@@ -37,8 +37,8 @@ int is_sorted(const int *a, int n) {
 
 // ---------- O(n^2) sorts ----------
 
-// Bubble Sort: repeatedly swap adjacent out-of-order pairs.
-// Early exit if a full pass makes no swaps (array became sorted).
+// Bubble Sort: repeatedly swap adjacent different pairs.
+// Early exit if a full pass makes no swaps (array is already sorted).
 void bubble_sort(int *a, int n) {
     for (int i = 0; i < n - 1; i++) {
         int swapped = 0;
@@ -70,7 +70,7 @@ void selection_sort(int *a, int n) {
 }
 
 // Insertion Sort: grow a sorted prefix by inserting each next element
-// into its correct position (like sorting cards in your hand).
+// into its correct position (like sorting playing cards in your hand).
 void insertion_sort(int *a, int n) {
     for (int i = 1; i < n; i++) {
         int key = a[i];
@@ -94,7 +94,7 @@ int compare_ints(const void *x, const void *y) {
 // ---------- Benchmark driver ----------
 
 // Runs one algorithm on a fresh copy of the source array, returns elapsed
-// milliseconds (as double). Verifies the result is actually sorted.
+// milliseconds (as double). Verifies if the result is actually sorted.
 double benchmark(void (*sort_fn)(int *, int), const int *src, int n, const char *name) {
     static int buffer[MAX_N];
     memcpy(buffer, src, n * sizeof(int));
